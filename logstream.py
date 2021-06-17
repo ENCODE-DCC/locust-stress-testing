@@ -5,9 +5,7 @@ from itertools import cycle
 
 
 class LogStream:
-    def __init__(
-        self, source_file: str, offsets=None, shuffle: bool = True, seed: int = 42
-    ):
+    def __init__(self, source_file: str, offsets=None, shuffle: bool = True):
         self.source_file = source_file
         if offsets:
             print("use given offsets")
@@ -26,7 +24,7 @@ class LogStream:
             for position in self.offsets:
                 mm.seek(position)
                 record = mm.readline()
-                yield record
+                yield record.decode().strip()
 
     def scan_offsets(self):
         tmp_offsets = []
